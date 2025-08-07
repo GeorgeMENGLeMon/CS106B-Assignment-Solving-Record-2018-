@@ -32,6 +32,156 @@
 using namespace std;
 
 
+int main() {
+    string test = "0101";
+    int a = stringToInteger(test);
+    cout << a << endl;
+    return 0;
+}
+
+
+/*Lecture 18 Advanced Trees;
+********************************************************
+
+
+struct TreeNode {
+    int data;
+    TreeNode* left;
+    TreeNode* right;
+
+    TreeNode() : data(0), left(nullptr), right(nullptr) {}
+
+    TreeNode(int val) : data(val), left(nullptr), right(nullptr) {}
+
+    bool isLeaf() {
+        return left == nullptr && right == nullptr;
+    }
+    void add(int val);
+};
+
+
+void TreeNode::add(int val) {
+    if(val < data) {
+        if(left == nullptr)
+            left = new TreeNode(val);
+        else left->add(val);
+    }
+    else if (val > data) {
+        if(right == nullptr)
+            right = new TreeNode(val);
+        else right->add(val);
+    }
+}
+
+// 非成员模版 add()
+// void add(TreeNode*& node, int v) {
+//     if (node == nullptr) {
+//         node = new TreeNode(v);
+//         return;
+//     }
+//     if (v < node->val)
+//         add(node->left, v);
+//     else if (v > node->val)
+//         add(node->right, v);
+// }
+
+int getMin(TreeNode* &node) {
+    if(node->left == nullptr) return node->data;
+    else return getMin(node->left);
+}
+
+
+
+void remove(TreeNode* &node, int val) {
+    if(node == nullptr) return;
+    if(node->data < val) {
+        remove(node->right, val);
+    }
+    else if(node->data > val) {
+        remove(node->left, val);
+    }
+    else {
+        // case 1 : leaf
+        if(node->isLeaf()) {
+            delete node;
+            node = nullptr;
+        }
+        else if(node->right == nullptr) {
+            // case 2 : only left subtree
+            TreeNode* trash = node;
+            node = node->left;
+            delete trash;
+        }
+        else if(node->left == nullptr) {
+            // case 3 : only right subtree
+            TreeNode* trash = node;
+            node = node->right;
+            delete trash;
+        }
+        else {
+            int minVal = getMin(node->right);
+            node->data = minVal;
+            remove(node->right,minVal);
+        }
+    }
+}
+
+// 成员函数形式 remove()
+// class BST {
+// private:
+//     TreeNode* root;
+
+//     int getMin(TreeNode* node) const {
+//         while (node->left != nullptr) node = node->left;
+//         return node->data;
+//     }
+
+//     void remove(TreeNode*& node, int val) {
+//         if (node == nullptr) return;
+
+//         if (val < node->data) {
+//             remove(node->left, val);
+//         } else if (val > node->data) {
+//             remove(node->right, val);
+//         } else {
+//             // 找到了
+//             if (node->isLeaf()) {
+//                 delete node;
+//                 node = nullptr;
+//             }
+//             else if (node->left == nullptr) {
+//                 TreeNode* trash = node;
+//                 node = node->right;
+//                 delete trash;
+//             }
+//             else if (node->right == nullptr) {
+//                 TreeNode* trash = node;
+//                 node = node->left;
+//                 delete trash;
+//             }
+//             else {
+//                 int minVal = getMin(node->right);
+//                 node->data = minVal;
+//                 remove(node->right, minVal);
+//             }
+//         }
+//     }
+
+// public:
+//     BST() : root(nullptr) {}
+
+//     void remove(int val) {
+//         remove(root, val);
+//     }
+// };
+
+int main() {
+    return 0;
+}
+
+
+*/
+
 /*Lecture 17 Binary Search Trees;
 ********************************************************
 
