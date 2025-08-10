@@ -29,14 +29,35 @@
 #include "BankAccount.h"
 #include "arraystack.h"
 #include"fraction.h"
+#include "basicgraph.h"
 using namespace std;
 
+string coolest(istream& input) {
 
-int main() {
-    string test = "0101";
-    int a = stringToInteger(test);
-    cout << a << endl;
-    return 0;
+    // read file into graph
+    BasicGraphGen graph;
+    string name1, name2;
+    while(input >> name1 >> name2) {
+        graph.addVertex(name1);
+        graph.addVertex(name2);
+        graph.addEdge(name1, name2);
+    }
+    cout << graph << endl;
+
+    // find the most followers of followers
+    int maxFof = 0;
+    string coolestName;
+    for(string v : graph.getVertexNames()) {
+        int fof = 0;
+        for(string u : graph.getNeighborNames(v)) fof += graph.getNeighbors(u).size();
+
+        if(fof > maxFof) {
+            maxFof = fof;
+            coolestName = v;
+        }
+    }
+
+    return coolestName;
 }
 
 
